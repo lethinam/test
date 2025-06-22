@@ -32,7 +32,6 @@
         body {
             font-family: var(--font-body);
             background: linear-gradient(135deg, #1a1a1a 0%, #121212 50%, #0a0a0a 100%);
-            /*background-attachment: scroll;*/
             color: var(--color-text-dark);
             overflow-x: hidden;
             line-height: 1.7;
@@ -144,6 +143,8 @@
             transition: all var(--transition-speed) ease;
             will-change: transform, box-shadow;
             border: none;
+            width: 100%;
+            text-align: center;
         }
         .btn:hover {
             background-color: var(--color-accent-dark);
@@ -264,10 +265,10 @@
             transition: all var(--transition-speed) ease;
         }
         .product-card:hover .product-overlay { opacity: 1; transform: translateY(0); }
-        .view-details-btn { width: 100%; font-size: 16px; padding: 12px; }
+        .view-details-btn { font-size: 16px; padding: 12px; }
 
-        /* Modal */
-        #detail-modal {
+        /* --- MODAL STYLES (Chung cho cả 2 modal) --- */
+        .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: rgba(0,0,0,0.9);
             z-index: 1001;
@@ -275,14 +276,28 @@
             opacity: 0; visibility: hidden;
             transition: opacity var(--transition-speed) ease, visibility var(--transition-speed) ease;
         }
-        #detail-modal.visible { opacity: 1; visibility: visible; }
-        .modal-content {
+        .modal-overlay.visible { opacity: 1; visibility: visible; }
+        .modal-content-base {
             background-color: var(--color-card-dark);
-            width: 90%; max-width: 900px;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+            width: 90%;
             padding: 40px; border-radius: 15px; position: relative;
             box-shadow: 0 15px 30px var(--color-shadow);
             animation: scaleIn 0.5s ease-out forwards;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .close-modal-btn {
+            position: absolute; top: 15px; right: 20px;
+            font-size: 32px; background: none; border: none;
+            color: var(--color-text-dark); cursor: pointer; transition: color 0.3s ease, transform 0.3s ease;
+            z-index: 10;
+        }
+        .close-modal-btn:hover { color: var(--color-accent); transform: rotate(90deg); }
+
+        /* Detail Modal */
+        #detail-modal .modal-content {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+            max-width: 900px;
         }
         .modal-gallery { position: relative; }
         .modal-main-image {
@@ -317,13 +332,47 @@
         }
         .size-btn:hover { border-color: var(--color-accent); }
         .size-btn.active { border-color: var(--color-accent); background-color: var(--color-accent); color: #fff; }
-        .close-modal-btn {
-            position: absolute; top: 15px; right: 20px;
-            font-size: 32px; background: none; border: none;
-            color: var(--color-text-dark); cursor: pointer; transition: color 0.3s ease, transform 0.3s ease;
+        
+        /* --- Checkout Modal --- */
+        #checkout-modal .checkout-content {
+            max-width: 550px;
+            text-align: left;
         }
-        .close-modal-btn:hover { color: var(--color-accent); transform: rotate(90deg); }
+        .checkout-content h2 {
+            font-family: var(--font-heading);
+            color: var(--color-accent);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        .checkout-summary {
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--color-accent);
+        }
+        .checkout-summary p { margin: 5px 0; }
+        .checkout-summary .product-name { font-family: var(--font-subheading); font-weight: 600; font-size: 18px; }
 
+        .checkout-form .form-group { margin-bottom: 20px; }
+        .checkout-form label { display: block; margin-bottom: 8px; font-weight: 300; }
+        .checkout-form input {
+            width: 100%;
+            padding: 12px;
+            background-color: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 5px;
+            color: var(--color-text-dark);
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        .checkout-form input:focus {
+            outline: none;
+            border-color: var(--color-accent);
+        }
+        .checkout-form .btn { margin-top: 10px; }
+        
         /* Footer */
         footer { background-color: #0a0a0a; color: #a09787; padding: 80px 0 40px; position: relative; }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; margin-bottom: 50px; }
@@ -338,12 +387,10 @@
 
         /* Responsive */
         @media (max-width: 900px) {
-            .modal-content {
+            #detail-modal .modal-content {
                 grid-template-columns: 1fr;
                 max-width: 500px;
                 padding: 30px;
-                max-height: 90vh;
-                overflow-y: auto;
             }
             .modal-main-image { height: 400px; }
         }
@@ -389,8 +436,9 @@
         </div>
     </header>
 
-    <div id="detail-modal">
-    </div>
+    <div id="detail-modal" class="modal-overlay"></div>
+    
+    <div id="checkout-modal" class="modal-overlay"></div>
 
     <main>
         <section id="home" class="banner">
@@ -405,7 +453,7 @@
             <div class="container">
                 <h2 class="section-title animate-on-scroll">Sản Phẩm Nổi Bật</h2>
                 <div class="product-grid">
-                </div>
+                    </div>
             </div>
         </section>
 
@@ -429,24 +477,9 @@
                 <div class="footer-col">
                     <h4>Theo Dõi</h4>
                     <div class="social-links">
-                        <div class="social-links">
-                          <!-- Facebook -->
-                          <a href="https://facebook.com/your-page" target="_blank">
-                            <i class="fab fa-facebook-f"></i>
-                          </a>
-
-                          <!-- Zalo (dùng hình ảnh vì Font Awesome không có icon Zalo) -->
-                          <a href="https://zalo.me/0987654321" target="_blank">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/32px-Icon_of_Zalo.svg.png" 
-                                 alt="Zalo" 
-                                 style="width: 24px; height: 24px; vertical-align: middle; margin: 0 8px;">
-                          </a>
-
-                          <!-- TikTok -->
-                          <a href="https://tiktok.com/@yourusername" target="_blank">
-                            <i class="fab fa-tiktok"></i>
-                          </a>
-                        </div>
+                        <a href="https://facebook.com/your-page" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://zalo.me/0987654321" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/32px-Icon_of_Zalo.svg.png" alt="Zalo" style="width: 24px; height: 24px; vertical-align: middle;"></a>
+                        <a href="https://tiktok.com/@yourusername" target="_blank"><i class="fab fa-tiktok"></i></a>
                     </div>
                 </div>
             </div>
@@ -465,39 +498,24 @@
             { id: 2, name: "Váy Lụa Cổ Điển", price: 1900000, isNew: false, images: ["https://images.unsplash.com/photo-1525507119028-ed4c629203d3?q=80&w=1974&auto=format&fit=crop", "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?q=80&w=1974&auto=format&fit=crop", "https://images.unsplash.com/photo-1611262617038-2a94a7b014e2?q=80&w=1974&auto=format&fit=crop"], sizes: ["S", "M"] },
             { id: 3, name: "Giày Oxford Da Thật", price: 3200000, isNew: true, images: ["https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=2080&auto=format&fit=crop", "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?q=80&w=1928&auto=format&fit=crop", "https://images.unsplash.com/photo-1560769629-9758109df174?q=80&w=2070&auto=format&fit=crop"], sizes: ["39", "40", "41", "42"] },
             { id: 4, name: "Túi Tote Da Bê", price: 4500000, isNew: false, images: ["https://images.unsplash.com/photo-1591195857868-2b3565eecf19?q=80&w=1974&auto=format&fit=crop", "https://images.unsplash.com/photo-1571653108878-bab53090f975?q=80&w=1974&auto=format&fit=crop"], sizes: ["One Size"] },
-            
         ];
 
         // --- STATE ---
         let currentProductInModal = null;
         let currentImageIndex = 0;
+        let selectedSize = null;
 
         // --- DOM ELEMENTS ---
         const preloader = document.querySelector('.preloader');
         const body = document.body;
         const productGrid = document.querySelector('.product-grid');
         const detailModal = document.getElementById('detail-modal');
+        const checkoutModal = document.getElementById('checkout-modal'); // Mới
         const navToggle = document.querySelector('.nav-toggle');
         const nav = document.querySelector('nav');
 
         // --- PARTICLES.JS ---
-        particlesJS('particles', {
-            particles: {
-                number: { value: 50, density: { enable: true, value_area: 800 } },
-                color: { value: '#c0a183' },
-                shape: { type: 'circle', stroke: { width: 0, color: '#000000' } },
-                opacity: { value: 0.5, random: true, anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false } },
-                size: { value: 3, random: true, anim: { enable: true, speed: 2, size_min: 0.1, sync: false } },
-                line_linked: { enable: false },
-                move: { enable: true, speed: 1, direction: 'none', random: true, straight: false, out_mode: 'out', bounce: false }
-            },
-            interactivity: {
-                detect_on: 'canvas',
-                events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' }, resize: true },
-                modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
-            },
-            retina_detect: true
-        });
+        particlesJS('particles', { particles: { number: { value: 50, density: { enable: true, value_area: 800 } }, color: { value: '#c0a183' }, shape: { type: 'circle' }, opacity: { value: 0.5, random: true, anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false } }, size: { value: 3, random: true, anim: { enable: true, speed: 2, size_min: 0.1, sync: false } }, move: { enable: true, speed: 1, direction: 'none', random: true, straight: false, out_mode: 'out' } }, interactivity: { detect_on: 'canvas', events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' }, resize: true }, modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } } }, retina_detect: true });
 
         // --- FUNCTIONS ---
         function renderProducts() {
@@ -521,25 +539,25 @@
             });
         }
 
-        function createModalContent(product) {
+        function createDetailModalContent(product) {
             detailModal.innerHTML = `
-                <div class="modal-content">
+                <div class="modal-content-base modal-content">
                     <button class="close-modal-btn">×</button>
                     <div class="modal-gallery">
                         <img src="${product.images[0]}" alt="${product.name}" class="modal-main-image">
                         <div class="gallery-nav">
-                            <button id="prev-image"><</button>
-                            <button id="next-image">></button>
+                            <button class="gallery-nav-btn" data-direction="-1"><</button>
+                            <button class="gallery-nav-btn" data-direction="1">></button>
                         </div>
                     </div>
                     <div class="modal-info">
-                        <h2 id="modal-product-name">${product.name}</h2>
-                        <p class="price" id="modal-product-price">${product.price.toLocaleString('vi-VN')} VNĐ</p>
+                        <h2>${product.name}</h2>
+                        <p class="price">${product.price.toLocaleString('vi-VN')} VNĐ</p>
                         <h3>Chọn Size:</h3>
-                        <div class="size-selector" id="modal-size-selector">
+                        <div class="size-selector">
                             ${product.sizes.map(size => `<button class="size-btn">${size}</button>`).join('')}
                         </div>
-                        <button class="btn pulse-animation">Thêm vào giỏ hàng</button>
+                        <button class="btn pulse-animation" id="buy-now-btn">Mua Ngay</button>
                     </div>
                 </div>
             `;
@@ -547,24 +565,70 @@
                 detailModal.querySelector('.gallery-nav').style.display = 'none';
             }
         }
+        
+        // --- MỚI: Function tạo nội dung cho Checkout Modal ---
+        function createCheckoutModalContent(product, size) {
+            checkoutModal.innerHTML = `
+                <div class="modal-content-base checkout-content">
+                    <button class="close-modal-btn">×</button>
+                    <h2>Thông Tin Đặt Hàng</h2>
+                    
+                    <div class="checkout-summary">
+                        <p><strong>Sản phẩm:</strong> <span class="product-name">${product.name}</span></p>
+                        <p><strong>Size:</strong> ${size}</p>
+                        <p><strong>Giá:</strong> <span class="price">${product.price.toLocaleString('vi-VN')} VNĐ</span></p>
+                    </div>
+                    
+                    <form class="checkout-form" id="checkout-form">
+                        <div class="form-group">
+                            <label for="fullName">Họ và Tên</label>
+                            <input type="text" id="fullName" name="fullName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Số Điện Thoại</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Địa Chỉ Nhận Hàng</label>
+                            <input type="text" id="address" name="address" required>
+                        </div>
+                        <button type="submit" class="btn">Xác Nhận Đơn Hàng</button>
+                    </form>
+                </div>
+            `;
+        }
 
         function openDetailModal(productId) {
             currentProductInModal = productData.find(p => p.id == productId);
             if (!currentProductInModal) return;
 
             currentImageIndex = 0;
-            createModalContent(currentProductInModal);
+            selectedSize = null; // Reset size khi mở modal mới
+            createDetailModalContent(currentProductInModal);
             
             detailModal.classList.add('visible');
             body.classList.add('modal-open');
         }
 
-        function closeModal() {
+        function closeDetailModal() {
             detailModal.classList.remove('visible');
             body.classList.remove('modal-open');
             setTimeout(() => { detailModal.innerHTML = ''; }, 500);
         }
 
+        // --- MỚI: Function mở và đóng Checkout Modal ---
+        function openCheckoutModal() {
+            createCheckoutModalContent(currentProductInModal, selectedSize);
+            checkoutModal.classList.add('visible');
+            body.classList.add('modal-open');
+        }
+
+        function closeCheckoutModal() {
+            checkoutModal.classList.remove('visible');
+            body.classList.remove('modal-open');
+            setTimeout(() => { checkoutModal.innerHTML = ''; }, 500);
+        }
+        
         function switchImage(direction) {
             if (!currentProductInModal || currentProductInModal.images.length <= 1) return;
             
@@ -608,20 +672,53 @@
             }
         });
 
+        // --- Cập nhật Event Listener cho Detail Modal ---
         detailModal.addEventListener('click', e => {
-            if (e.target.matches('.close-modal-btn')) closeModal();
-            if (e.target.matches('#detail-modal')) closeModal();
-            if (e.target.matches('#next-image')) switchImage(1);
-            if (e.target.matches('#prev-image')) switchImage(-1);
+            if (e.target.matches('.close-modal-btn') || e.target.matches('#detail-modal')) closeDetailModal();
+            if (e.target.closest('.gallery-nav-btn')) switchImage(parseInt(e.target.closest('.gallery-nav-btn').dataset.direction));
+            
             if (e.target.matches('.size-btn')) {
                 detailModal.querySelector('.size-btn.active')?.classList.remove('active');
                 e.target.classList.add('active');
+                selectedSize = e.target.textContent;
+            }
+
+            // Xử lý khi click "Mua Ngay"
+            if (e.target.matches('#buy-now-btn')) {
+                if (!selectedSize) {
+                    alert('Vui lòng chọn size trước khi mua!');
+                    return;
+                }
+                closeDetailModal();
+                // Dùng setTimeout để đảm bảo modal cũ đóng mượt mà trước khi modal mới hiện
+                setTimeout(() => {
+                   openCheckoutModal();
+                }, 300);
+            }
+        });
+        
+        // --- MỚI: Event Listener cho Checkout Modal ---
+        checkoutModal.addEventListener('click', e => {
+             if (e.target.matches('.close-modal-btn') || e.target.matches('#checkout-modal')) {
+                closeCheckoutModal();
+             }
+        });
+        checkoutModal.addEventListener('submit', e => {
+            if(e.target.matches('#checkout-form')) {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                const customerName = formData.get('fullName');
+                // Tại đây bạn có thể xử lý dữ liệu (gửi tới server, etc.)
+                // Ví dụ đơn giản là hiển thị alert
+                alert(`Cảm ơn ${customerName} đã đặt hàng!\nChúng tôi sẽ sớm liên hệ với bạn để xác nhận đơn hàng.`);
+                closeCheckoutModal();
             }
         });
 
         document.addEventListener('keydown', e => {
-            if (e.key === 'Escape' && detailModal.classList.contains('visible')) {
-                closeModal();
+            if (e.key === 'Escape') {
+                if (detailModal.classList.contains('visible')) closeDetailModal();
+                if (checkoutModal.classList.contains('visible')) closeCheckoutModal();
             }
         });
         
