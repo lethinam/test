@@ -706,14 +706,34 @@
         checkoutModal.addEventListener('submit', e => {
             if(e.target.matches('#checkout-form')) {
                 e.preventDefault();
+
                 const formData = new FormData(e.target);
-                const customerName = formData.get('fullName');
-                // Tại đây bạn có thể xử lý dữ liệu (gửi tới server, etc.)
-                // Ví dụ đơn giản là hiển thị alert
-                alert(`Cảm ơn ${customerName} đã đặt hàng!\nChúng tôi sẽ sớm liên hệ với bạn để xác nhận đơn hàng.`);
-                closeCheckoutModal();
+                const data = {
+                    name: formData.get('fullName'),
+                    phone: formData.get('phone'),
+                    address: formData.get('address'),
+                    product: currentProductInModal.name,
+                    size: selectedSize,
+                    price: currentProductInModal.price
+                };
+
+                fetch('https://script.google.com/macros/s/AKfycbyPkK5SlQMj9wLksuQsdMXNeG3cvqkIbng7dKfqyqaWM--99uFSyDb8XKiV6s8NUfNZaA/exec', {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: { 'Content-Type': 'application/json' }
+                })
+                .then(res => res.text())
+                .then(res => {
+                    alert(`Cảm ơn ${data.name} đã đặt hàng!`);
+                    closeCheckoutModal();
+                })
+                .catch(err => {
+                    alert("Có lỗi xảy ra khi gửi đơn hàng. Vui lòng thử lại.");
+                    console.error(err);
+                });
             }
         });
+
 
         document.addEventListener('keydown', e => {
             if (e.key === 'Escape') {
