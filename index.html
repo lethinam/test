@@ -383,7 +383,6 @@
             <nav>
                 <ul>
                     <li><a href="#home">Trang Chủ</a></li>
-                    <li><a href="#products">Cửa Hàng</a></li>
                     <li><a href="#about">Về Chúng Tôi</a></li>
                 </ul>
             </nav>
@@ -428,30 +427,26 @@
                     <p>Thời trang tinh xảo, đẳng cấp vượt thời gian.</p>
                 </div>
                 <div class="footer-col">
-                    <h4>Cửa Hàng</h4>
-                    <ul>
-                        <li><a href="#products">Áo Khoác</a></li>
-                        <li><a href="#products">Váy</a></li>
-                        <li><a href="#products">Giày</a></li>
-                        <li><a href="#products">Phụ Kiện</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Hỗ Trợ</h4>
-                    <ul>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Vận Chuyển</a></li>
-                        <li><a href="#">Đổi Trà</a></li>
-                        <li><a href="#">Liên Hệ</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
                     <h4>Theo Dõi</h4>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
-                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <div class="social-links">
+                          <!-- Facebook -->
+                          <a href="https://facebook.com/your-page" target="_blank">
+                            <i class="fab fa-facebook-f"></i>
+                          </a>
+
+                          <!-- Zalo (dùng hình ảnh vì Font Awesome không có icon Zalo) -->
+                          <a href="https://zalo.me/0987654321" target="_blank">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/32px-Icon_of_Zalo.svg.png" 
+                                 alt="Zalo" 
+                                 style="width: 24px; height: 24px; vertical-align: middle; margin: 0 8px;">
+                          </a>
+
+                          <!-- TikTok -->
+                          <a href="https://tiktok.com/@yourusername" target="_blank">
+                            <i class="fab fa-tiktok"></i>
+                          </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -465,12 +460,56 @@
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         // --- DATA ---
-        const productData = [
-            { id: 1, name: "Áo Trench Coat Vải Kaki", price: 2500000, isNew: true, images: ["https://i.postimg.cc/K8hMD1Vk/z6727422682364-ea5cf189ed63a66d8aec5c63007fec5b.jpg", "https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=1935&auto=format&fit=crop", "https://images.unsplash.com/photo-1612287231670-c31a851cd9aa?q=80&w=1935&auto=format&fit=crop"], sizes: ["S", "M", "L"] },
-            { id: 2, name: "Váy Lụa Cổ Điển", price: 1900000, isNew: false, images: ["https://images.unsplash.com/photo-1525507119028-ed4c629203d3?q=80&w=1974&auto=format&fit=crop", "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?q=80&w=1974&auto=format&fit=crop", "https://images.unsplash.com/photo-1611262617038-2a94a7b014e2?q=80&w=1974&auto=format&fit=crop"], sizes: ["S", "M"] },
-            { id: 3, name: "Giày Oxford Da Thật", price: 3200000, isNew: true, images: ["https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=2080&auto=format&fit=crop", "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?q=80&w=1928&auto=format&fit=crop", "https://images.unsplash.com/photo-1560769629-9758109df174?q=80&w=2070&auto=format&fit=crop"], sizes: ["39", "40", "41", "42"] },
-            { id: 4, name: "Túi Tote Da Bê", price: 4500000, isNew: false, images: ["https://images.unsplash.com/photo-1591195857868-2b3565eecf19?q=80&w=1974&auto=format&fit=crop", "https://images.unsplash.com/photo-1571653108878-bab53090f975?q=80&w=1974&auto=format&fit=crop"], sizes: ["One Size"] }
-        ];
+        const products = [
+              {
+                id: 1,
+                name: "Áo Trench Coat Vải Kaki",
+                price: 2500000,
+                isNew: true,
+                images: [
+                  "https://i.postimg.cc/K8hMD1Vk/z6727422682364-ea5cf189ed63a66d8aec5c63007fec5b.jpg",
+                  "https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=1935&auto=format&fit=crop",
+                  "https://images.unsplash.com/photo-1612287231670-c31a851cd9aa?q=80&w=1935&auto=format&fit=crop"
+                ],
+                sizes: ["S", "M", "L"]
+              },
+              {
+                id: 2,
+                name: "Váy Lụa Cổ Điển",
+                price: 1900000,
+                isNew: false,
+                images: [
+                  "https://images.unsplash.com/photo-1525507119028-ed4c629203d3?q=80&w=1974&auto=format&fit=crop",
+                  "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?q=80&w=1974&auto=format&fit=crop",
+                  "https://images.unsplash.com/photo-1611262617038-2a94a7b014e2?q=80&w=1974&auto=format&fit=crop"
+                ],
+                sizes: ["S", "M"]
+              },
+              {
+                id: 3,
+                name: "Giày Oxford Da Thật",
+                price: 3200000,
+                isNew: true,
+                images: [
+                  "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=2080&auto=format&fit=crop",
+                  "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?q=80&w=1928&auto=format&fit=crop",
+                  "https://images.unsplash.com/photo-1560769629-9758109df174?q=80&w=2070&auto=format&fit=crop"
+                ],
+                sizes: ["39", "40", "41", "42"]
+              },
+              {
+                id: 4,
+                name: "Túi Tote Da Bê",
+                price: 4500000,
+                isNew: false,
+                images: [
+                  "https://images.unsplash.com/photo-1591195857868-2b3565eecf19?q=80&w=1974&auto=format&fit=crop",
+                  "https://images.unsplash.com/photo-1571653108878-bab53090f975?q=80&w=1974&auto=format&fit=crop"
+                ],
+                sizes: ["One Size"]
+              }
+            ];
+
 
         // --- STATE ---
         let currentProductInModal = null;
