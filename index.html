@@ -460,56 +460,13 @@
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         // --- DATA ---
-        const products = [
-              {
-                id: 1,
-                name: "Áo Trench Coat Vải Kaki",
-                price: 2500000,
-                isNew: true,
-                images: [
-                  "https://i.postimg.cc/K8hMD1Vk/z6727422682364-ea5cf189ed63a66d8aec5c63007fec5b.jpg",
-                  "https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=1935&auto=format&fit=crop",
-                  "https://images.unsplash.com/photo-1612287231670-c31a851cd9aa?q=80&w=1935&auto=format&fit=crop"
-                ],
-                sizes: ["S", "M", "L"]
-              },
-              {
-                id: 2,
-                name: "Váy Lụa Cổ Điển",
-                price: 1900000,
-                isNew: false,
-                images: [
-                  "https://images.unsplash.com/photo-1525507119028-ed4c629203d3?q=80&w=1974&auto=format&fit=crop",
-                  "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?q=80&w=1974&auto=format&fit=crop",
-                  "https://images.unsplash.com/photo-1611262617038-2a94a7b014e2?q=80&w=1974&auto=format&fit=crop"
-                ],
-                sizes: ["S", "M"]
-              },
-              {
-                id: 3,
-                name: "Giày Oxford Da Thật",
-                price: 3200000,
-                isNew: true,
-                images: [
-                  "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=2080&auto=format&fit=crop",
-                  "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?q=80&w=1928&auto=format&fit=crop",
-                  "https://images.unsplash.com/photo-1560769629-9758109df174?q=80&w=2070&auto=format&fit=crop"
-                ],
-                sizes: ["39", "40", "41", "42"]
-              },
-              {
-                id: 4,
-                name: "Túi Tote Da Bê",
-                price: 4500000,
-                isNew: false,
-                images: [
-                  "https://images.unsplash.com/photo-1591195857868-2b3565eecf19?q=80&w=1974&auto=format&fit=crop",
-                  "https://images.unsplash.com/photo-1571653108878-bab53090f975?q=80&w=1974&auto=format&fit=crop"
-                ],
-                sizes: ["One Size"]
-              }
-            ];
-
+        const productData = [
+            { id: 1, name: "Áo Trench Coat Vải Kaki", price: 2500000, isNew: true, images: ["https://i.postimg.cc/K8hMD1Vk/z6727422682364-ea5cf189ed63a66d8aec5c63007fec5b.jpg", "https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=1935&auto=format&fit=crop", "https://images.unsplash.com/photo-1612287231670-c31a851cd9aa?q=80&w=1935&auto=format&fit=crop"], sizes: ["S", "M", "L"] },
+            { id: 2, name: "Váy Lụa Cổ Điển", price: 1900000, isNew: false, images: ["https://images.unsplash.com/photo-1525507119028-ed4c629203d3?q=80&w=1974&auto=format&fit=crop", "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?q=80&w=1974&auto=format&fit=crop", "https://images.unsplash.com/photo-1611262617038-2a94a7b014e2?q=80&w=1974&auto=format&fit=crop"], sizes: ["S", "M"] },
+            { id: 3, name: "Giày Oxford Da Thật", price: 3200000, isNew: true, images: ["https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=2080&auto=format&fit=crop", "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?q=80&w=1928&auto=format&fit=crop", "https://images.unsplash.com/photo-1560769629-9758109df174?q=80&w=2070&auto=format&fit=crop"], sizes: ["39", "40", "41", "42"] },
+            { id: 4, name: "Túi Tote Da Bê", price: 4500000, isNew: false, images: ["https://images.unsplash.com/photo-1591195857868-2b3565eecf19?q=80&w=1974&auto=format&fit=crop", "https://images.unsplash.com/photo-1571653108878-bab53090f975?q=80&w=1974&auto=format&fit=crop"], sizes: ["One Size"] },
+            
+        ];
 
         // --- STATE ---
         let currentProductInModal = null;
