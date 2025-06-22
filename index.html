@@ -3,706 +3,367 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Cửa hàng Thời trang - Khám phá phong cách vượt thời gian cho nam, nữ và trẻ em.">
-    <meta name="keywords" content="thời trang, quần áo, phụ kiện, cửa hàng trực tuyến">
-    <title>Cửa hàng Thời trang - Tối ưu cho Di động</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <meta name="description" content="ELEGANCE - Khám phá phong cách thời trang tinh tế và đẳng cấp.">
+    <meta name="keywords" content="thời trang, elegance, quần áo, phụ kiện, cửa hàng trực tuyến, sang trọng">
+    <title>ELEGANCE - Trải nghiệm Mua sắm Tinh tế</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         :root {
-            --primary-color: #004080;
-            --primary-color-dark: #003366;
-            --light-bg: #fff;
-            --light-text: #333;
-            --dark-bg: #1a1a1a;
-            --dark-text: #f0f0f0;
-            --card-bg-light: #fff;
-            --card-bg-dark: #3c3c3c;
-            --header-bg-light: #ffffff;
-            --header-bg-dark: #2c2c2c;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Lato', sans-serif;
+            --color-accent: #c09f80;
+            --color-accent-dark: #a8876c;
+            --color-bg-dark: #121212;
+            --color-text-dark: #e0e0e0;
+            --color-card-dark: #1e1e1e;
+            --color-header-dark: rgba(25, 25, 25, 0.85);
+            --color-bg-light: #f8f9fa;
+            --color-text-light: #212529;
+            --color-card-light: #ffffff;
+            --color-header-light: rgba(255, 255, 255, 0.85);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        html {
-            scroll-behavior: smooth;
-        }
+        /* --- Base & Animations --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
-            font-family: 'Poppins', sans-serif;
-            background: var(--light-bg);
-            color: var(--light-text);
-            transition: background 0.5s ease, color 0.5s ease;
+            font-family: var(--font-body);
+            background-color: var(--color-bg-dark);
+            color: var(--color-text-dark);
+            transition: background-color 0.4s ease, color 0.4s ease;
+            overflow-x: hidden;
         }
-        body.dark-mode {
-            background: var(--dark-bg);
-            color: var(--dark-text);
-        }
-        .container {
-            padding: 0 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- Header & Navigation --- */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            background: var(--header-bg-light);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            transition: background 0.5s ease;
+        /* --- Components --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .section { padding: 80px 0; }
+        .section-title { font-family: var(--font-heading); font-size: 42px; text-align: center; margin-bottom: 50px; font-weight: 700; }
+        .btn {
+            display: inline-block; padding: 12px 30px; background-color: var(--color-accent);
+            color: white; text-decoration: none; border-radius: 5px; border: none;
+            font-weight: 700; cursor: pointer; transition: all 0.3s ease;
         }
-        body.dark-mode header {
-            background: var(--header-bg-dark);
-        }
-        .logo {
-            font-size: 24px;
-            font-weight: 600;
-        }
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 25px;
-        }
-        nav a {
-            text-decoration: none;
-            color: var(--light-text);
-            transition: color 0.3s;
-            font-weight: 600;
-        }
-        body.dark-mode nav a {
-            color: var(--dark-text);
-        }
-        nav a:hover {
-            color: var(--primary-color);
-        }
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-        .nav-toggle {
-            display: none; /* Hide by default on desktop */
-            font-size: 24px;
-            background: none;
-            border: none;
-            color: var(--light-text);
-            cursor: pointer;
-        }
-        body.dark-mode .nav-toggle {
-            color: var(--dark-text);
-        }
+        .btn:hover { background-color: var(--color-accent-dark); transform: translateY(-3px); }
 
-        /* --- Theme Toggle --- */
-        .theme-toggle {
-            position: relative;
-            width: 60px;
-            height: 30px;
-            background: #ccc;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: background 0.5s ease;
-        }
-        .theme-toggle.dark { background: #444; }
-        .theme-toggle .icon {
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            width: 26px;
-            height: 26px;
-            background: #fff;
-            border-radius: 50%;
-            transition: transform 0.5s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .theme-toggle.dark .icon { transform: translateX(30px); }
-        .theme-toggle .icon::before {
-            content: '\f185'; /* FontAwesome sun icon */
-            font-family: "Font Awesome 5 Free";
-            font-weight: 900;
-            color: #f39c12;
-            font-size: 18px;
-        }
-        .theme-toggle.dark .icon::before {
-            content: '\f186'; /* FontAwesome moon icon */
-            color: #f1c40f;
-        }
+        /* --- Header --- */
+        header { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; padding: 20px 0; background-color: transparent; backdrop-filter: blur(5px); transition: all 0.4s ease; }
+        header.scrolled { background-color: var(--color-header-dark); box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 15px 0; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: var(--font-heading); font-size: 28px; font-weight: 700; text-decoration: none; color: inherit; }
+        nav ul { list-style: none; display: flex; gap: 35px; }
+        nav a { text-decoration: none; color: inherit; font-weight: 700; position: relative; padding: 5px 0; }
+        nav a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: var(--color-accent); transition: width 0.3s ease; }
+        nav a:hover::after, nav a.active::after { width: 100%; }
 
         /* --- Banner --- */
-        .banner {
-            height: 60vh;
-            max-height: 500px;
-            background-image: url('https://images.unsplash.com/photo-1445205170230-053211b5f459');
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: #fff;
-            position: relative;
-        }
-        .banner::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-        }
-        .banner-content {
-            z-index: 1;
-            padding: 20px;
-        }
-        .banner h1 {
-            font-size: 48px;
-            margin: 0 0 20px 0;
-        }
-        .banner button {
-            padding: 12px 25px;
-            background: var(--primary-color);
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: 600;
-            transition: background 0.3s, transform 0.3s;
-        }
-        .banner button:hover {
-            background: var(--primary-color-dark);
-            transform: scale(1.05);
-        }
-
-        /* --- Sections --- */
-        .section {
-            padding: 60px 20px;
-        }
-        .section-title {
-            text-align: center;
-            margin-bottom: 40px;
-            font-size: 32px;
-        }
-
-        /* --- Product Grid --- */
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 30px;
-        }
+        .banner { height: 100vh; background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1571513722275-4b41940f54b8?q=80&w=2070&auto=format&fit=crop'); background-size: cover; background-position: center; display: flex; justify-content: center; align-items: center; text-align: center; color: white; }
+        .banner-content { max-width: 700px; animation: fadeIn 1.5s ease-out; }
+        .banner h1 { font-family: var(--font-heading); font-size: 64px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); margin-bottom: 20px; }
+        .banner p { font-size: 18px; margin-bottom: 30px; }
+        
+        /* --- Product Grid & Cards --- */
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px; }
         .product-card {
-            text-align: center;
-            background: var(--card-bg-light);
+            position: relative;
             border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            overflow: hidden;
+            /* The transition is now on the card itself for the focus effect */
+            transition: transform 0.4s ease, opacity 0.4s ease, filter 0.4s ease;
+        }
+
+        /* --- NEW: Focus Effect --- */
+        .product-grid:hover > .product-card:not(:hover) {
+            opacity: 0.5;
+            filter: blur(3px);
+            transform: scale(0.95);
+        }
+
+        .product-card-inner {
+            background-color: var(--color-card-dark);
+            border-radius: 10px;
+            width: 100%; height: 100%;
             position: relative;
-            transition: transform 0.3s, box-shadow 0.3s;
+            z-index: 1;
+            overflow: hidden; /* This is crucial for the new glow */
+            transition: transform 0.4s ease;
         }
-        body.dark-mode .product-card {
-            background: var(--card-bg-dark);
+        .product-card:hover .product-card-inner {
+             transform: scale(1.05);
         }
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        }
-        .product-card .img-container {
-            width: 100%;
-            height: 250px;
-            position: relative;
-        }
-        .product-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .product-info {
-            padding: 20px;
-        }
-        .product-info h3 {
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-        .product-info p {
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-        .buy-icon {
+
+        /* --- NEW: Sheen/Glint Glow Effect --- */
+        .product-card-inner::before {
+            content: "";
             position: absolute;
-            top: 15px;
-            right: 15px;
-            background: rgba(255, 255, 255, 0.9);
-            color: var(--primary-color);
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            cursor: pointer;
-            opacity: 0;
-            transition: opacity 0.3s, transform 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            transform: scale(0.8);
-        }
-        .product-card:hover .buy-icon {
-            opacity: 1;
-            transform: scale(1);
-        }
-        .buy-icon:hover {
-             background: var(--primary-color);
-             color: #fff;
-        }
-
-
-        /* --- Cart --- */
-        .cart {
-            background: #f9f9f9;
-        }
-        body.dark-mode .cart {
-            background: #222;
-        }
-        .cart-items {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            background: var(--card-bg-light);
-            border-radius: 5px;
-        }
-        body.dark-mode .cart-item {
-            background: var(--card-bg-dark);
-        }
-        .cart-total {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 20px;
-            font-weight: 600;
-        }
-        .cart-total p {
-            margin-bottom: 20px;
-        }
-        .checkout-btn {
-            padding: 12px 25px;
-            background: var(--primary-color);
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: 600;
-            transition: background 0.3s, transform 0.3s;
-        }
-        .checkout-btn:hover {
-            background: var(--primary-color-dark);
-            transform: scale(1.05);
-        }
-
-        /* --- About Section --- */
-        .about {
-            text-align: center;
-            font-size: 18px;
-            color: #666;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        body.dark-mode .about {
-            color: #ccc;
-        }
-
-        /* --- Modal --- */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1001;
-            left: 0;
             top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.6);
-            justify-content: center;
-            align-items: center;
+            background: linear-gradient(110deg, transparent 30%, var(--color-accent), transparent 70%);
+            background-size: 200% 100%;
+            background-position: 200% 0; /* Start off-screen to the right */
+            opacity: 0;
+            transition: opacity 0.5s ease, background-position 1s ease-in-out;
+            z-index: 2;
         }
-        .modal-content {
-            background: var(--light-bg);
-            padding: 30px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 450px;
-            text-align: center;
-            position: relative;
-        }
-        body.dark-mode .modal-content {
-            background: var(--card-bg-dark);
-            color: var(--dark-text);
-        }
-        .close-modal {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 24px;
-            color: #888;
-            cursor: pointer;
-        }
-        .modal-content h2 {
-            margin-bottom: 20px;
-        }
-        .modal-content form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .modal-content input, .modal-content textarea {
-            padding: 12px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-family: 'Poppins', sans-serif;
-        }
-        .modal-content button {
-            padding: 12px;
-            background: var(--primary-color);
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background 0.3s;
-            font-weight: 600;
-        }
-        .modal-content button:hover {
-            background: var(--primary-color-dark);
+        .product-card:hover .product-card-inner::before {
+            opacity: 0.2; /* A very subtle glow */
+            background-position: -100% 0; /* Move to the left */
         }
         
-        /* --- Toast Notification --- */
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: var(--primary-color);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 5px;
-            z-index: 1002;
-            opacity: 0;
-            transition: opacity 0.3s, transform 0.3s;
-            pointer-events: none;
-        }
-        .toast.show {
-            opacity: 1;
-            transform: translate(-50%, -10px);
-        }
+        .product-image-container { position: relative; height: 350px; overflow: hidden; }
+        .product-card-inner img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .product-card:hover img { transform: scale(1.1); }
+        .product-info { padding: 20px; }
+        .product-info h3 { font-size: 20px; margin-bottom: 8px; font-family: var(--font-heading); }
+        .product-info .price { font-weight: 700; color: var(--color-accent); font-size: 18px; }
 
-        /* --- Responsive Design --- */
-        @media (max-width: 768px) {
-            .nav-toggle {
-                display: block; /* Show hamburger icon */
-                z-index: 1001; /* Ensure it's above the nav menu */
-            }
-            nav {
-                position: fixed;
-                top: 0;
-                right: -100%; /* Hide off-screen */
-                width: 70%;
-                height: 100vh;
-                background: var(--header-bg-light);
-                transition: right 0.4s ease-in-out;
-                padding-top: 80px;
-            }
-            body.dark-mode nav {
-                 background: var(--header-bg-dark);
-            }
-            nav.nav-active {
-                right: 0; /* Slide in */
-            }
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-                gap: 30px;
-            }
-            .banner {
-                /* Disable fixed background on mobile for better performance */
-                background-attachment: scroll;
-                height: 50vh;
-            }
-            .banner h1 {
-                font-size: 32px;
-            }
-            .section-title {
-                font-size: 28px;
-            }
+        /* --- Hover Overlay Buttons --- */
+        .product-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.5); display: flex;
+            flex-direction: column; justify-content: center; align-items: center;
+            gap: 15px; opacity: 0; transition: opacity 0.4s ease; z-index: 3;
         }
+        .product-card:hover .product-overlay { opacity: 1; }
+        .buy-now-corner-btn {
+            position: absolute; top: 15px; right: 15px; background: var(--color-accent); 
+            color: white; border: none; padding: 8px 12px; font-size: 12px;
+            border-radius: 5px; cursor: pointer; opacity: 0; transition: all 0.4s ease; z-index: 4;
+        }
+        .product-card:hover .buy-now-corner-btn { opacity: 1; }
+        .view-details-center-btn {
+            padding: 10px 25px; background-color: rgba(255,255,255,0.9);
+            color: #111; border: none; border-radius: 5px; font-weight: 700;
+            cursor: pointer; transform: translateY(20px); transition: all 0.4s ease;
+        }
+        .product-card:hover .view-details-center-btn { transform: translateY(0); }
+
+        /* --- Detail Modal Styling (Unchanged) --- */
+        #detail-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1001; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s ease; }
+        #detail-modal.visible { opacity: 1; visibility: visible; }
+        .modal-content { background-color: var(--color-card-dark); display: flex; gap: 30px; width: 90%; max-width: 900px; padding: 30px; border-radius: 10px; position: relative; transform: scale(0.9); transition: transform 0.4s ease; }
+        #detail-modal.visible .modal-content { transform: scale(1); }
+        .modal-gallery { width: 50%; position: relative; }
+        .modal-main-image { width: 100%; height: 400px; object-fit: cover; border-radius: 10px; }
+        .gallery-nav { position: absolute; top: 50%; width: 100%; display: flex; justify-content: space-between; transform: translateY(-50%); }
+        .gallery-nav button { background-color: rgba(0,0,0,0.5); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 20px; cursor: pointer; margin: 0 10px; }
+        .modal-info { width: 50%; }
+        .modal-info h2 { font-family: var(--font-heading); font-size: 32px; margin-bottom: 10px; }
+        .modal-info .price { color: var(--color-accent); font-size: 24px; margin-bottom: 20px; }
+        .modal-info h3 { font-size: 18px; margin-bottom: 10px; }
+        .size-selector { display: flex; gap: 10px; margin-bottom: 30px; }
+        .size-btn { width: 40px; height: 40px; border: 2px solid #555; background: none; color: inherit; cursor: pointer; border-radius: 5px; }
+        .size-btn.active { border-color: var(--color-accent); background-color: var(--color-accent); color: white; }
+        .close-modal-btn { position: absolute; top: 15px; right: 20px; font-size: 32px; background: none; border: none; color: inherit; cursor: pointer; }
+
+        /* --- Footer --- */
+        footer { background-color: #0a0a0a; color: #e0e0e0; padding: 60px 0 20px 0; clip-path: polygon(0 15%, 100% 0, 100% 100%, 0% 100%); }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
+        .footer-col h4 { font-family: var(--font-heading); margin-bottom: 20px; font-size: 22px; }
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: 10px; }
+        .footer-col a { text-decoration: none; color: #ccc; transition: color 0.3s ease; }
+        .footer-col a:hover { color: var(--color-accent); }
+        .social-links a { display: inline-block; margin-right: 15px; font-size: 20px; }
+        .footer-bottom { text-align: center; border-top: 1px solid #333; padding-top: 20px; font-size: 14px; color: #aaa; }
+
     </style>
 </head>
 <body>
-    <header>
-        <div class="logo">Fashion</div>
-        <nav id="main-nav">
-            <ul>
-                <li><a href="#home">Trang chủ</a></li>
-                <li><a href="#products">Cửa hàng</a></li>
-                <li><a href="#about">Giới thiệu</a></li>
-                <li><a href="#contact">Liên hệ</a></li>
-            </ul>
-        </nav>
-        <div class="header-right">
-             <div class="theme-toggle" id="theme-toggle">
-                <div class="icon"></div>
-            </div>
-            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
-                <i class="fas fa-bars"></i>
-            </button>
+
+    <header id="main-header">
+        <div class="container nav-container">
+            <a href="#home" class="logo">ELEGANCE</a>
+            <nav>
+                <ul>
+                    <li><a href="#home" class="active">Trang Chủ</a></li>
+                    <li><a href="#products">Cửa Hàng</a></li>
+                    <li><a href="#about">Về Chúng Tôi</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
+    <div id="detail-modal">
+        <div class="modal-content">
+            <button class="close-modal-btn">&times;</button>
+            <div class="modal-gallery">
+                <img src="" alt="Product Image" class="modal-main-image">
+                <div class="gallery-nav">
+                    <button id="prev-image">&lt;</button>
+                    <button id="next-image">&gt;</button>
+                </div>
+            </div>
+            <div class="modal-info">
+                <h2 id="modal-product-name">Product Name</h2>
+                <p class="price" id="modal-product-price">Price</p>
+                <h3>Chọn Size:</h3>
+                <div class="size-selector" id="modal-size-selector"></div>
+                <button class="btn">Mua Ngay</button>
+            </div>
+        </div>
+    </div>
+
     <main>
-        <section id="home" class="banner" data-aos="fade-in">
+        <section id="home" class="banner">
             <div class="banner-content">
-                <h1 data-aos="fade-up" data-aos-delay="200">Khám phá Phong cách Vượt thời gian</h1>
-                <a href="#products"><button data-aos="fade-up" data-aos-delay="400">Mua ngay</button></a>
+                <h1>Thời Trang Vượt Thời Gian</h1>
+                <p>Nơi phong cách và sự tinh tế hội tụ. Khám phá những bộ sưu tập độc đáo dành riêng cho bạn.</p>
+                <a href="#products" class="btn">Khám Phá Bộ Sưu Tập</a>
             </div>
         </section>
 
-        <section id="about" class="section about" data-aos="fade-up">
-            <h2 class="section-title">Về Chúng Tôi</h2>
-            <p>Chúng tôi là cửa hàng thời trang hàng đầu, mang đến cho bạn những sản phẩm chất lượng và phong cách nhất. Luôn cập nhật xu hướng mới để bạn tự tin thể hiện cá tính.</p>
-        </section>
-
-        <section id="products" class="section all-products" data-aos="fade-up">
+        <section id="products" class="section">
             <div class="container">
-                <h2 class="section-title">Tất Cả Sản Phẩm</h2>
+                <h2 class="section-title">Sản Phẩm Nổi Bật</h2>
                 <div class="product-grid">
-                    <div class="product-card" data-aos="fade-up" data-name="Áo khoác Thanh lịch" data-price="2500000">
-                        <div class="img-container">
-                            <img src="https://i.postimg.cc/K8hMD1Vk/z6727422682364-ea5cf189ed63a66d8aec5c63007fec5b.jpg" alt="Áo khoác Thanh lịch" loading="lazy">
-                        </div>
-                        <div class="product-info">
-                            <h3>Áo khoác Thanh lịch</h3>
-                            <p>2.500.000 VNĐ</p>
-                        </div>
-                        <div class="buy-icon" title="Thêm vào giỏ hàng"><i class="fas fa-shopping-cart"></i></div>
                     </div>
-                    <div class="product-card" data-aos="fade-up" data-aos-delay="100" data-name="Váy Cổ điển" data-price="1900000">
-                        <div class="img-container">
-                             <img src="https://images.unsplash.com/photo-1525507119028-ed4c629203d3" alt="Váy Cổ điển" loading="lazy">
-                        </div>
-                        <div class="product-info">
-                            <h3>Váy Cổ điển</h3>
-                            <p>1.900.000 VNĐ</p>
-                        </div>
-                        <div class="buy-icon" title="Thêm vào giỏ hàng"><i class="fas fa-shopping-cart"></i></div>
-                    </div>
-                    <div class="product-card" data-aos="fade-up" data-aos-delay="200" data-name="Giày Phong cách" data-price="1500000">
-                         <div class="img-container">
-                            <img src="https://images.unsplash.com/photo-1512374226708-d42c4b1a1a44" alt="Giày Phong cách" loading="lazy">
-                        </div>
-                        <div class="product-info">
-                            <h3>Giày Phong cách</h3>
-                            <p>1.500.000 VNĐ</p>
-                        </div>
-                         <div class="buy-icon" title="Thêm vào giỏ hàng"><i class="fas fa-shopping-cart"></i></div>
-                    </div>
-                    <div class="product-card" data-aos="fade-up" data-aos-delay="300" data-name="Túi Da" data-price="3200000">
-                        <div class="img-container">
-                             <img src="https://images.unsplash.com/photo-1591195857868-2b3565eecf19" alt="Túi Da" loading="lazy">
-                        </div>
-                        <div class="product-info">
-                            <h3>Túi Da</h3>
-                            <p>3.200.000 VNĐ</p>
-                        </div>
-                        <div class="buy-icon" title="Thêm vào giỏ hàng"><i class="fas fa-shopping-cart"></i></div>
-                    </div>
-                </div>
             </div>
         </section>
 
-        <section id="contact" class="section cart" data-aos="fade-up">
-            <div class="container">
-                <h2 class="section-title">Giỏ Hàng</h2>
-                <div class="cart-items">
-                    <p class="empty-cart-message">Giỏ hàng của bạn đang trống.</p>
-                </div>
-                <div class="cart-total">
-                    <p>Tổng cộng: <span id="total-price">0 VNĐ</span></p>
-                    <button class="checkout-btn">Thanh toán</button>
-                </div>
+        <section id="about" class="section">
+            <div class="container" style="text-align: center; max-width: 800px;">
+                 <h2 class="section-title">Về ELEGANCE</h2>
+                 <p style="font-size: 18px; line-height: 1.7;">ELEGANCE không chỉ là thời trang, đó là tuyên ngôn về phong cách sống. Chúng tôi tin rằng mỗi người đều xứng đáng được khoác lên mình những sản phẩm chất lượng, được chế tác tỉ mỉ và có thiết kế vượt thời gian. Sứ mệnh của chúng tôi là mang đến sự tự tin và thanh lịch cho bạn trong mọi khoảnh khắc.</p>
             </div>
         </section>
     </main>
-
-    <div id="buyModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" id="close-modal-btn">&times;</span>
-            <h2>Thông tin mua hàng</h2>
-            <form id="buyForm">
-                <input type="text" placeholder="Họ và tên" required>
-                <input type="email" placeholder="Email" required>
-                <input type="tel" placeholder="Số điện thoại" required>
-                <textarea placeholder="Địa chỉ giao hàng" rows="3" required></textarea>
-                <button type="submit">Xác nhận đơn hàng</button>
-            </form>
-        </div>
-    </div>
     
-    <div id="toast-notification" class="toast"></div>
+    <footer id="contact">
+        <div class="container"><div class="footer-grid"><div class="footer-col"><h4>ELEGANCE</h4><p>Mang đến những sản phẩm thời trang chất lượng cao với thiết kế tinh xảo và đẳng cấp.</p></div><div class="footer-col"><h4>Cửa Hàng</h4><ul><li><a href="#products">Áo Khoác</a></li><li><a href="#products">Váy</a></li><li><a href="#products">Giày</a></li><li><a href="#products">Phụ Kiện</a></li></ul></div><div class="footer-col"><h4>Hỗ Trợ</h4><ul><li><a href="#">Câu Hỏi Thường Gặp</a></li><li><a href="#">Chính Sách Vận Chuyển</a></li><li><a href="#">Chính Sách Đổi Trả</a></li><li><a href="#">Liên Hệ</a></li></ul></div><div class="footer-col"><h4>Theo Dõi Chúng Tôi</h4><div class="social-links"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-pinterest-p"></i></a><a href="#"><i class="fab fa-tiktok"></i></a></div></div></div><div class="footer-bottom"><p>&copy; 2025 ELEGANCE. Thiết kế với ❤️ bởi Trí tuệ nhân tạo.</p></div></div>
+    </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            AOS.init({
-                duration: 800,
-                once: true,
-            });
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- DATA & STATE ---
+        const products = [
+            { id: 1, name: "Áo Trench Coat Vải Kaki", price: 2500000, category: "coat", isNew: true,
+              image: "https://i.postimg.cc/K8hMD1Vk/z6727422682364-ea5cf189ed63a66d8aec5c63007fec5b.jpg",
+              gallery: ["https://i.postimg.cc/K8hMD1Vk/z6727422682364-ea5cf189ed63a66d8aec5c63007fec5b.jpg", "https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=1935&auto=format&fit=crop"],
+              sizes: ["S", "M", "L"] },
+            { id: 2, name: "Váy Lụa Cổ Điển", price: 1900000, category: "dress", isNew: false,
+              image: "https://images.unsplash.com/photo-1525507119028-ed4c629203d3?q=80&w=1974&auto=format&fit=crop",
+              gallery: ["https://images.unsplash.com/photo-1525507119028-ed4c629203d3?q=80&w=1974&auto=format&fit=crop", "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?q=80&w=1974&auto=format&fit=crop"],
+              sizes: ["S", "M"] },
+            { id: 3, name: "Giày Oxford Da Thật", price: 3200000, category: "shoes", isNew: true,
+              image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=2080&auto=format&fit=crop",
+              gallery: ["https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=2080&auto=format&fit=crop", "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?q=80&w=1928&auto=format&fit=crop"],
+              sizes: ["39", "40", "41", "42"] },
+            { id: 4, name: "Túi Tote Da Bê", price: 4500000, category: "accessory", isNew: false,
+              image: "https://images.unsplash.com/photo-1591195857868-2b3565eecf19?q=80&w=1974&auto=format&fit=crop",
+              gallery: ["https://images.unsplash.com/photo-1591195857868-2b3565eecf19?q=80&w=1974&auto=format&fit=crop"],
+              sizes: ["One Size"] }
+        ];
+        let currentProductInModal = null;
+        let currentImageIndex = 0;
 
-            const themeToggle = document.getElementById('theme-toggle');
-            const body = document.body;
-            const navToggle = document.getElementById('nav-toggle');
-            const mainNav = document.getElementById('main-nav');
+        // --- SELECTORS ---
+        const productGrid = document.querySelector('.product-grid');
+        const detailModal = document.getElementById('detail-modal');
+        const closeModalBtn = document.querySelector('.close-modal-btn');
+        const modalMainImage = document.querySelector('.modal-main-image');
+        const prevImageBtn = document.getElementById('prev-image');
+        const nextImageBtn = document.getElementById('next-image');
+
+        // --- RENDER PRODUCTS ---
+        function renderProducts() {
+            productGrid.innerHTML = '';
+            products.forEach((product) => {
+                const cardWrapper = document.createElement('div');
+                cardWrapper.className = 'product-card';
+                
+                cardWrapper.innerHTML = `
+                    <div class="product-card-inner">
+                        <div class="product-image-container">
+                            <img src="${product.image}" alt="${product.name}" loading="lazy">
+                            <div class="product-overlay">
+                                <button class="view-details-center-btn" data-id="${product.id}">Xem Chi Tiết</button>
+                            </div>
+                            <button class="buy-now-corner-btn" data-id="${product.id}">Mua Ngay</button>
+                        </div>
+                        <div class="product-info">
+                            <h3>${product.name}</h3>
+                            <p class="price">${product.price.toLocaleString('vi-VN')} VNĐ</p>
+                        </div>
+                    </div>`;
+                productGrid.appendChild(cardWrapper);
+            });
+        }
+        
+        // --- MODAL LOGIC ---
+        function openDetailModal(productId) {
+            currentProductInModal = products.find(p => p.id == productId);
+            if (!currentProductInModal) return;
             
-            const buyModal = document.getElementById('buyModal');
-            const closeModalBtn = document.getElementById('close-modal-btn');
-            const checkoutBtn = document.querySelector('.checkout-btn');
-            const buyForm = document.getElementById('buyForm');
+            currentImageIndex = 0;
+            updateModalContent();
+            detailModal.classList.add('visible');
+        }
+        
+        function updateModalContent() {
+            document.getElementById('modal-product-name').textContent = currentProductInModal.name;
+            document.getElementById('modal-product-price').textContent = currentProductInModal.price.toLocaleString('vi-VN') + ' VNĐ';
+            modalMainImage.src = currentProductInModal.gallery[currentImageIndex];
 
-            const cartItemsContainer = document.querySelector('.cart-items');
-            const emptyCartMessage = document.querySelector('.empty-cart-message');
-            const totalPriceElement = document.getElementById('total-price');
-            
-            let cart = [];
-
-            // --- Theme Toggler ---
-            const currentTheme = localStorage.getItem('theme');
-            if (currentTheme === 'dark') {
-                body.classList.add('dark-mode');
-                themeToggle.classList.add('dark');
-            }
-            themeToggle.addEventListener('click', () => {
-                body.classList.toggle('dark-mode');
-                themeToggle.classList.toggle('dark');
-                localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
-            });
-
-            // --- Mobile Navigation ---
-            navToggle.addEventListener('click', () => {
-                mainNav.classList.toggle('nav-active');
-            });
-            mainNav.addEventListener('click', (e) => {
-                if(e.target.tagName === 'A'){
-                    mainNav.classList.remove('nav-active');
-                }
-            })
-
-            // --- Toast Notification ---
-            function showToast(message) {
-                const toast = document.getElementById('toast-notification');
-                toast.textContent = message;
-                toast.classList.add('show');
-                setTimeout(() => {
-                    toast.classList.remove('show');
-                }, 2500);
-            }
-
-            // --- Cart Logic ---
-            function updateCart() {
-                if (cart.length === 0) {
-                    cartItemsContainer.innerHTML = '<p class="empty-cart-message">Giỏ hàng của bạn đang trống.</p>';
-                } else {
-                     cartItemsContainer.innerHTML = ''; // Clear items
-                }
-               
-                let total = 0;
-                cart.forEach(item => {
-                    const itemElement = document.createElement('div');
-                    itemElement.classList.add('cart-item');
-                    itemElement.innerHTML = `
-                        <p>${item.name} x ${item.quantity}</p>
-                        <p>${(item.price * item.quantity).toLocaleString('vi-VN')} VNĐ</p>
-                    `;
-                    cartItemsContainer.appendChild(itemElement);
-                    total += item.price * item.quantity;
+            const sizeSelector = document.getElementById('modal-size-selector');
+            sizeSelector.innerHTML = '';
+            currentProductInModal.sizes.forEach(size => {
+                const sizeBtn = document.createElement('button');
+                sizeBtn.className = 'size-btn';
+                sizeBtn.textContent = size;
+                sizeBtn.addEventListener('click', () => {
+                    sizeSelector.querySelector('.active')?.classList.remove('active');
+                    sizeBtn.classList.add('active');
                 });
-                totalPriceElement.textContent = total.toLocaleString('vi-VN') + ' VNĐ';
+                sizeSelector.appendChild(sizeBtn);
+            });
+        }
+
+        function closeModal() {
+            detailModal.classList.remove('visible');
+        }
+
+        function showNextImage() {
+            currentImageIndex = (currentImageIndex + 1) % currentProductInModal.gallery.length;
+            modalMainImage.src = currentProductInModal.gallery[currentImageIndex];
+        }
+
+        function showPrevImage() {
+            currentImageIndex = (currentImageIndex - 1 + currentProductInModal.gallery.length) % currentProductInModal.gallery.length;
+            modalMainImage.src = currentProductInModal.gallery[currentImageIndex];
+        }
+
+        // --- EVENT LISTENERS ---
+        productGrid.addEventListener('click', e => {
+            const viewBtn = e.target.closest('.view-details-center-btn');
+            const buyBtn = e.target.closest('.buy-now-corner-btn');
+
+            if (viewBtn) {
+                openDetailModal(viewBtn.dataset.id);
             }
-
-            function addToCart(name, price) {
-                const existingItem = cart.find(item => item.name === name);
-                if (existingItem) {
-                    existingItem.quantity += 1;
-                } else {
-                    cart.push({ name, price: parseFloat(price), quantity: 1 });
-                }
-                updateCart();
-                showToast(`Đã thêm "${name}" vào giỏ hàng!`);
+            if (buyBtn) {
+                alert('Chức năng "Mua Ngay" đang được phát triển!');
             }
-
-            document.querySelectorAll('.buy-icon').forEach(icon => {
-                icon.addEventListener('click', (e) => {
-                    const card = e.currentTarget.closest('.product-card');
-                    const name = card.dataset.name;
-                    const price = card.dataset.price;
-                    addToCart(name, price);
-                });
-            });
-            
-            // --- Modal Logic ---
-            checkoutBtn.addEventListener('click', () => {
-                if (cart.length > 0) {
-                    buyModal.style.display = 'flex';
-                } else {
-                    showToast('Giỏ hàng trống, vui lòng thêm sản phẩm!');
-                }
-            });
-
-            closeModalBtn.addEventListener('click', () => {
-                buyModal.style.display = 'none';
-            });
-
-            window.addEventListener('click', (e) => {
-                if (e.target === buyModal) {
-                    buyModal.style.display = 'none';
-                }
-            });
-
-            buyForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const formData = new FormData(e.target);
-                const customerData = Object.fromEntries(formData.entries());
-                
-                // Here you would typically send data to a server
-                console.log('--- ĐƠN HÀNG MỚI ---');
-                console.log('Thông tin khách hàng:', customerData);
-                console.log('Sản phẩm đã đặt:', cart);
-                
-                buyModal.style.display = 'none';
-                buyForm.reset();
-                cart = []; // Clear cart after purchase
-                updateCart();
-                
-                showToast('Đặt hàng thành công! Cảm ơn bạn.');
-            });
-            
-            // Initial call
-            updateCart();
         });
+
+        closeModalBtn.addEventListener('click', closeModal);
+        detailModal.addEventListener('click', e => {
+            if (e.target === detailModal) closeModal();
+        });
+        nextImageBtn.addEventListener('click', showNextImage);
+        prevImageBtn.addEventListener('click', showPrevImage);
+
+        // --- INITIALIZATION ---
+        renderProducts();
+    });
     </script>
 </body>
 </html>
