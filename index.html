@@ -1,0 +1,479 @@
+  <!DOCTYPE html>
+  <html lang="vi">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cửa hàng Thời trang - Khám phá phong cách vượt thời gian cho nam, nữ và trẻ em.">
+    <meta name="keywords" content="thời trang, quần áo, phụ kiện, cửa hàng trực tuyến">
+    <title>Cửa hàng Thời trang</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: 'Poppins', sans-serif;
+        background: #fff;
+        color: #333;
+        transition: background 0.6s ease, color 0.6s ease;
+      }
+      body.dark-mode {
+        background: #1a1a1a;
+        color: #f0f0f0;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background: #fff;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        transition: background 0.6s ease;
+      }
+      body.dark-mode header {
+        background: #2c2c2c;
+      }
+      .logo {
+        font-size: 24px;
+        font-weight: 600;
+      }
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+      }
+      nav a {
+        text-decoration: none;
+        color: #333;
+        transition: color 0.3s;
+      }
+      body.dark-mode nav a {
+        color: #f0f0f0;
+      }
+      .theme-toggle {
+        position: relative;
+        width: 60px;
+        height: 30px;
+        background: #ccc;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: background 0.6s ease;
+      }
+      .theme-toggle.dark {
+        background: #444;
+      }
+      .theme-toggle .icon {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 26px;
+        height: 26px;
+        background: #fff;
+        border-radius: 50%;
+        transition: transform 0.6s ease;
+      }
+      .theme-toggle.dark .icon {
+        transform: translateX(30px);
+      }
+      .theme-toggle .icon::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 20px;
+        height: 20px;
+        background-image: url('https://img.icons8.com/ios-filled/50/000000/sun.png');
+        background-size: cover;
+        transition: background-image 0.6s ease;
+      }
+      .theme-toggle.dark .icon::before {
+        background-image: url('https://img.icons8.com/ios-filled/50/ffffff/moon-symbol.png');
+      }
+      .banner {
+        height: 500px;
+        background-image: url('https://images.unsplash.com/photo-1445205170230-053211b5f459');
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #fff;
+        position: relative;
+        transition: background-image 0.6s ease;
+      }
+      body.dark-mode .banner {
+        background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0');
+      }
+      .banner-content {
+        background: rgba(0,0,0,0.5);
+        padding: 20px;
+        border-radius: 10px;
+        transition: background 0.6s ease;
+      }
+      body.dark-mode .banner-content {
+        background: rgba(0,0,0,0.7);
+      }
+      .banner h1 {
+        font-size: 48px;
+        margin: 0;
+      }
+      .banner button {
+        padding: 10px 20px;
+        background: #004080;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background 0.3s, transform 0.3s;
+      }
+      .banner button:hover {
+        background: #003366;
+        transform: scale(1.05);
+      }
+      .all-products, .cart, .about {
+        padding: 40px 20px;
+        transition: background 0.6s ease;
+      }
+      body.dark-mode .all-products, body.dark-mode .cart, body.dark-mode .about {
+        background: #2c2c2c;
+      }
+      .all-products h2, .cart h2, .about h2 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+      }
+      .product-card {
+        text-align: center;
+        background: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        position: relative;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+      body.dark-mode .product-card {
+        background: #3c3c3c;
+      }
+      .product-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      }
+      .product-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 5px;
+      }
+      .buy-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 64, 128, 0.8);
+        color: #fff;
+        padding: 15px;
+        border-radius: 50%;
+        cursor: pointer;
+        opacity: 0;
+        transition: opacity 0.3s;
+        border: 2px solid #fff;
+      }
+      .product-card:hover .buy-icon {
+        opacity: 1;
+      }
+      .buy-icon i {
+        font-size: 24px;
+      }
+      .cart {
+        background: #f9f9f9;
+      }
+      body.dark-mode .cart {
+        background: #2c2c2c;
+      }
+      .cart-items {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .cart-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        background: #fff;
+        border-radius: 5px;
+      }
+      body.dark-mode .cart-item {
+        background: #3c3c3c;
+      }
+      .cart-total {
+        text-align: right;
+        margin-top: 20px;
+      }
+      .checkout-btn {
+        padding: 10px 20px;
+        background: #004080;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background 0.3s, transform 0.3s;
+      }
+      .checkout-btn:hover {
+        background: #003366;
+        transform: scale(1.05);
+      }
+      .about {
+        text-align: center;
+        font-size: 24px;
+        color: #666;
+      }
+      body.dark-mode .about {
+        color: #ccc;
+      }
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1001;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        justify-content: center;
+        align-items: center;
+      }
+      .modal-content {
+        background: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        width: 400px;
+        text-align: center;
+      }
+      body.dark-mode .modal-content {
+        background: #3c3c3c;
+        color: #f0f0f0;
+      }
+      .modal-content h2 {
+        margin-bottom: 20px;
+      }
+      .modal-content form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .modal-content input, .modal-content textarea {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+      .modal-content button {
+        padding: 10px;
+        background: #004080;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background 0.3s;
+      }
+      .modal-content button:hover {
+        background: #003366;
+      }
+      @keyframes add-to-cart {
+        0% { transform: translate(-50%, -50%) scale(1); }
+        50% { transform: translate(-50%, -100%) scale(1.2); }
+        100% { transform: translate(-50%, -50%) scale(1); }
+      }
+      .add-to-cart-animation {
+        animation: add-to-cart 0.5s ease-in-out;
+      }
+      @media (max-width: 1024px) {
+        .product-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 768px) {
+        .product-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 480px) {
+        .banner h1 {
+          font-size: 24px;
+        }
+        .banner button {
+          padding: 8px 16px;
+        }
+        .modal-content {
+          width: 90%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo">Cửa hàng Thời trang</div>
+      <nav aria-label="Main Navigation">
+        <ul>
+          <li><a href="#">Trang chủ</a></li>
+          <li><a href="#">Cửa hàng</a></li>
+          <li><a href="#">Giới thiệu</a></li>
+          <li><a href="#">Liên hệ</a></li>
+        </ul>
+      </nav>
+      <div class="theme-toggle" id="theme-toggle">
+        <div class="icon"></div>
+      </div>
+    </header>
+    <section class="banner" data-aos="fade-up">
+      <div class="banner-content">
+        <h1>Khám phá Phong cách Vượt thời gian</h1>
+        <button>Mua ngay</button>
+      </div>
+    </section>
+    <section class="about" data-aos="fade-up">
+      <h2>Về chúng tôi</h2>
+      <p>Chúng tôi là cửa hàng thời trang hàng đầu, mang đến cho bạn những sản phẩm chất lượng và phong cách nhất.</p>
+    </section>
+    <section class="all-products" data-aos="fade-up">
+      <h2>Tất cả Sản phẩm</h2>
+      <div class="product-grid">
+        <div class="product-card" data-name="Áo khoác Thanh lịch" data-price="2500000">
+          <img src="https://i.postimg.cc/K8hMD1Vk/z6727422682364-ea5cf189ed63a66d8aec5c63007fec5b.jpg" alt="Áo khoác Thanh lịch" loading="lazy">
+          <h3>Áo khoác Thanh lịch</h3>
+          <p>2.500.000 VNĐ</p>
+          <div class="buy-icon"><i class="fas fa-shopping-cart"></i></div>
+        </div>
+        <div class="product-card" data-name="Váy Cổ điển" data-price="1900000">
+          <img src="https://images.unsplash.com/photo-1525507119028-ed4c629203d3" alt="Váy Cổ điển" loading="lazy">
+          <h3>Váy Cổ điển</h3>
+          <p>1.900.000 VNĐ</p>
+          <div class="buy-icon"><i class="fas fa-shopping-cart"></i></div>
+        </div>
+        <div class="product-card" data-name="Giày Phong cách" data-price="1500000">
+          <img src="https://images.unsplash.com/photo-1512374226708-d42c4b1a1a44" alt="Giày Phong cách" loading="lazy">
+          <h3>Giày Phong cách</h3>
+          <p>1.500.000 VNĐ</p>
+          <div class="buy-icon"><i class="fas fa-shopping-cart"></i></div>
+        </div>
+        <div class="product-card" data-name="Túi Da" data-price="3200000">
+          <img src="https://images.unsplash.com/photo-1591195857868-2b3565eecf19" alt="Túi Da" loading="lazy">
+          <h3>Túi Da</h3>
+          <p>3.200.000 VNĐ</p>
+          <div class="buy-icon"><i class="fas fa-shopping-cart"></i></div>
+        </div>
+      </div>
+    </section>
+    <section class="cart" data-aos="fade-up">
+      <h2>Giỏ hàng</h2>
+      <div class="cart-items"></div>
+      <div class="cart-total">
+        <p>Tổng cộng: <span id="total-price">0 VNĐ</span></p>
+        <button class="checkout-btn">Thanh toán</button>
+      </div>
+    </section>
+    <div id="buyModal" class="modal">
+      <div class="modal-content">
+        <h2>Nhập thông tin mua hàng</h2>
+        <form id="buyForm">
+          <input type="text" placeholder="Họ và tên" required>
+          <input type="email" placeholder="Email" required>
+          <input type="tel" placeholder="Số điện thoại" required>
+          <textarea placeholder="Địa chỉ giao hàng" required></textarea>
+          <button type="submit">Xác nhận mua hàng</button>
+        </form>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+      AOS.init();
+      const themeToggle = document.getElementById('theme-toggle');
+      const body = document.body;
+      const modal = document.getElementById('buyModal');
+      const cartItemsContainer = document.querySelector('.cart-items');
+      const totalPriceElement = document.getElementById('total-price');
+      let cart = [];
+
+      if (localStorage.getItem('theme') === 'dark') {
+        body.classList.add('dark-mode');
+        themeToggle.classList.add('dark');
+      }
+
+      themeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        themeToggle.classList.toggle('dark');
+        if (body.classList.contains('dark-mode')) {
+          localStorage.setItem('theme', 'dark');
+        } else {
+          localStorage.setItem('theme', 'light');
+        }
+      });
+
+      document.querySelectorAll('.buy-icon').forEach(icon => {
+        icon.addEventListener('click', () => {
+          icon.classList.add('add-to-cart-animation');
+          setTimeout(() => {
+            icon.classList.remove('add-to-cart-animation');
+            modal.style.display = 'flex';
+          }, 500);
+        });
+      });
+
+      window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+
+      function addToCart(name, price) {
+        const existingItem = cart.find(item => item.name === name);
+        if (existingItem) {
+          existingItem.quantity += 1;
+        } else {
+          cart.push({ name, price, quantity: 1 });
+        }
+        updateCart();
+      }
+
+      function updateCart() {
+        cartItemsContainer.innerHTML = '';
+        let total = 0;
+        cart.forEach(item => {
+          const itemElement = document.createElement('div');
+          itemElement.classList.add('cart-item');
+          itemElement.innerHTML = `
+            <p>${item.name} x ${item.quantity}</p>
+            <p>${(item.price * item.quantity).toLocaleString()} VNĐ</p>
+          `;
+          cartItemsContainer.appendChild(itemElement);
+          total += item.price * item.quantity;
+        });
+        totalPriceElement.textContent = total.toLocaleString() + ' VNĐ';
+      }
+
+      document.getElementById('buyForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
+        console.log('Dữ liệu mua hàng:', data);
+        modal.style.display = 'none';
+      });
+    </script>
+  </body>
+  </html>
